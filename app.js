@@ -1,21 +1,24 @@
-const express = require("express");
-const app = express();
-const port = 3000;
-const mongoose = require("mongoose");
-const konsultasiRouter = require("./routers/konsultasi.router");
 
-app.use(express.json());
-app.use("/konsultasi", konsultasiRouter);
+const express = require('express');
+const db = require('./config/db');
+const app = express()
 
-mongoose
-  .connect("mongodb://127.0.0.1:27017/klinik")
-  .then(() => {
-    console.log("Connected to database!");
-  })
-  .catch((err) => {
-    console.log("Connection failed!", err);
-  });
+const allRoutes = require('./routes');
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+const PORT = process.env.PORT || 3000
+
+db.
+then(() => {
+  console.log("database terkoneksi")
+})
+.catch((err) => {
+  console.log(err);
+})
+
+app.use(express.json())
+app.use(allRoutes)
+
+app.listen(PORT, () => {
+  console.log("server running on port " + PORT);
+})
+

@@ -49,6 +49,7 @@ module.exports = {
     }
   },
 
+
   getAllUser: async (req, res) => {
     try {
       const users = await User.find({}, "-__v -password");
@@ -103,5 +104,7 @@ module.exports = {
     } catch (error) {
       res.status(500).json({ message: "Server Error" });
     }
+
   },
 };
+

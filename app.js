@@ -1,3 +1,4 @@
+
 const express = require("express");
 const db = require("./config/db");
 const app = express();
@@ -5,6 +6,7 @@ const app = express();
 const allRoutes = require("./routes");
 
 const PORT = process.env.PORT || 3000;
+
 
 db.then(() => {
   console.log("database terkoneksi");
@@ -17,4 +19,6 @@ app.use(allRoutes);
 
 app.listen(PORT, () => {
   console.log("server running on port " + PORT);
+
 });
+

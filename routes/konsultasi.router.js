@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+
 const auth = require("../middleware/auth");
 
 const {
@@ -32,5 +33,6 @@ router.delete(
   [auth.verifyToken, auth.isNakes],
   deleteKonsultasi
 );
+
 
 module.exports = router;

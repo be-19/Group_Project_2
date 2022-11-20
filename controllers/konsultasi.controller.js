@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const Konsultasi = require("../models/konsultasi");
 
 module.exports = {

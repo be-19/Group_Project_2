@@ -1,12 +1,13 @@
-const express = require('express');
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
-const userRouter = require('./user.router');
-const rekamRouter = require('./rekam.router');
-const konsultasiRouter = require('./konsultasi.router');
+const pasienRouter = require("./pasien.router");
+const authRouter = require("./auth.router");
+const konsultasiRouter = require("./konsultasi.router");
 
-router.use("/user", userRouter);
-router.use("/rekam", rekamRouter);
+router.use("/pasien", pasienRouter);
+router.use("/auth", authRouter);
 router.use("/konsultasi", konsultasiRouter);
 
 module.exports = router;
+

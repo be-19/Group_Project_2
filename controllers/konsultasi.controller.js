@@ -1,84 +1,67 @@
 const bcrypt = require('bcrypt');
-const Konsultasi = require("../models/konsultasi")
+const Konsultasi = require("../models/konsultasi");
 
 module.exports = {
-  getAllkonsultasi: async (req, res) => {
+  getAllKonsultasi: async (req, res) => {
     try {
-      const konsultasi = await Konsultasi.find({}, "-__v")
-      res.json({
-        message: "success get data Konsultasi Medis",
-        data: konsultasi
-      })
-    } catch (error) {
-      console.log(error);
+      const konsultasi = await Konsultasi.find()
+        .populate("pasien", "Nama")
+        .populate("dokter", "username");
+      res.status(200).json(konsultasi);
+    } catch (err) {
+      res.status(403).json({ message: err });
+    }
+  },
+  getKonsultasiById: async (req, res) => {
+    try {
+      const konsultasi = await Konsultasi.findById(req.params.konsultasiId)
+        .populate("pasien", "Nama")
+        .populate("dokter", "username");
+      res.status(200).json(konsultasi);
+    } catch (err) {
+      res.status(403).json({ message: err });
+    }
+  },
+  addKonsultasi: async (req, res) => {
+    const konsultasi = new Konsultasi({
+      pasien: req.body.pasien,
+      dokter: req.body.dokter,
+      poli: req.body.poli,
+    });
+    try {
+      const savedKonsultasi = await konsultasi.save();
+      res.status(200).json(savedKonsultasi);
+    } catch (err) {
+      res.status(403).json({ message: err });
     }
   },
 
-  getkonsultasiByID: async (req, res) => {
+  updateKonsultasi: async (req, res) => {
     try {
-      const konsultasi = await Konsultasi.findById(req.params.id, "-__v")
-      if (!konsultasi) {
-        res.status(404).json({
-          message: "Could not Found"
-        });
-      } else {
-        res.status(200).json({
-          message: "You Searched for",
-          data: konsultasi
-        })
-      }
-    } catch (error) {
-      res.status(500).json({ message: "Server Error" })
-    }
-
-  },
-
-  addkonsultasi: async (req, res) => {
-    const data = req.body
-    const konsultasi = new Konsultasi(data)
-
-    // console.log(konsultasi)
-    konsultasi.save()
-
-    res.json({
-      message: "Konsultasi Medis has been created!!",
-    })
-
-  },
-
-  deletekonsultasiByID: async (req, res) => {
-    try {
-      const konsultasi = await Konsultasi.findById(req.params.id, "-__v")
-
-      if (!konsultasi) {
-        res.status(404).json({
-          message: "Could not Found"
-        });
-      } else {
-        konsultasi.deleteOne()
-        res.status(201).json(
-          {
-            message: "Data Konsultasi Medis Deleted"
-          })
-      }
-    } catch (error) {
-      res.status(500).json({ message: "Server Error" })
+      const updatedKonsultasi = await Konsultasi.updateOne(
+        { _id: req.params.konsultasiId },
+        {
+          $set: {
+            pasien: req.body.pasien,
+            dokter: req.body.dokter,
+            poli: req.body.poli,
+            tanggal_konsultasi: req.body.tanggal_konsultasi,
+          },
+        }
+      );
+      res.status(200).json(updatedKonsultasi);
+    } catch (err) {
+      res.status(403).json({ message: err });
     }
   },
-
-  updatekonsultasiByID: async (req, res) => {
+  deleteKonsultasi: async (req, res) => {
     try {
-      const konsultasi = await Konsultasi.findById(req.params.id, "-__v")
-
-      Object.assign(konsultasi, req.body)
-      konsultasi.save();
-      res.status(201).send({
-        message: "Konsultasi updated!!",
-        data: konsultasi
-      })
-
-    } catch (error) {
-      res.status(500).json({ message: "Server Error" })
+      const removedKonsultasi = await Konsultasi.remove({
+        _id: req.params.konsultasiId,
+      });
+      res.status(200).json(removedKonsultasi);
+    } catch (err) {
+      res.status(403).json({ message: err });
     }
-  }
-}
+  },
+};

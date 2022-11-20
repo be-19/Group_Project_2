@@ -15,21 +15,21 @@ router.use(function (req, res, next) {
   next();
 });
 
-router.get("/", [auth.verifyToken, auth.isNakes], getAllKonsultasi);
+router.get("/", [auth.verifyToken, auth.isDokter], getAllKonsultasi);
 router.get(
   "/:konsultasiId",
-  [auth.verifyToken, auth.isNakes],
+  [auth.verifyToken, auth.isDokter],
   getKonsultasiById
 );
-router.post("/", [auth.verifyToken, auth.isNakes], addKonsultasi);
+router.post("/", [auth.verifyToken, auth.isDokter], addKonsultasi);
 router.patch(
   "/:konsultasiId",
-  [auth.verifyToken, auth.isNakes],
+  [auth.verifyToken, auth.isDokter],
   updateKonsultasi
 );
 router.delete(
   "/:konsultasiId",
-  [auth.verifyToken, auth.isNakes],
+  [auth.verifyToken, auth.isDokter],
   deleteKonsultasi
 );
 

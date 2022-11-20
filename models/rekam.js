@@ -1,17 +1,16 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 const rekamSchema = new Schema({
-    id_konsultasi:
-    {
-        type: mongoose.ObjectId,
-        ref: "konsultasi",
-    },
-    anamnesis: String,
-    diagnosis: String,
-    obat: String,
-})
+  id_konsultasi: {
+    type: Schema.Types.ObjectId,
+    ref: "Konsultasi",
+  },
+  anamnesis: String,
+  diagnosis: String,
+  obat: String,
+});
 
-const Rekam = mongoose.model("rekam", rekamSchema)
+const Rekam = mongoose.model("Rekam", rekamSchema);
 
-module.exports = Rekam
+module.exports = Rekam;

@@ -1,6 +1,5 @@
-const { Schema } = mongoose
-
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 const User = mongoose.model(
   "User",
@@ -11,7 +10,7 @@ const User = mongoose.model(
     roles: {
       type: String,
       enum: ["nakes", "dokter"],
-      required: [true, "Please specify user role"]
+      required: [true, "Please specify user role"],
     },
   })
 );

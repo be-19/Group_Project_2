@@ -32,7 +32,23 @@ module.exports = {
       });
     }
   },
+  getPasienByNik: async (req, res) => {
+    try {
+      const pasien = await Pasien.findOne({Nik:req.params.nik})
+      if (pasien === null) {
+        res.status(404).json({
+          message: "Pasien not found",
+        })
+      } else {
+        res.status(200).json(pasien);
+      }
+    } catch (err) {
+      res.status(500).json({
+        message: "internal server error",
+      })
+    }
 
+  },
   addPasien: async (req, res) => {
     try {
       const data = req.body;

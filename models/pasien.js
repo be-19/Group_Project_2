@@ -36,16 +36,13 @@ const pasienSchema = new Schema({
   },
   Alergi_obat: {
     type: Boolean,
-    required: [true, "No telepon tidak boleh kosong"],
+    required: [true, "Alergi obat tidak boleh kosong"],
   },
   Pekerjaan: {
     type: String,
-    required: [true, "No telepon tidak boleh kosong"],
+    required: [true, "Pekerjaan tidak boleh kosong"],
   },
-  user: {
-    type: mongoose.ObjectId,
-    ref: "User"
-  }
+  
 })
 
 const Pasien = mongoose.model("Pasien", pasienSchema)

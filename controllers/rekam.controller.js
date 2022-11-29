@@ -71,7 +71,7 @@ module.exports = {
 
   deleterekamByID: async (req, res) => {
     try {
-      const rekam = await Rekam.findById(req.params.id, "-__v");
+      const rekam = await Rekam.findById(req.params.rekamId, "-__v");
 
       if (!rekam) {
         res.status(404).json({
@@ -90,7 +90,7 @@ module.exports = {
 
   updaterekamByID: async (req, res) => {
     try {
-      const rekam = await Rekam.findById(req.params.id, "-__v");
+      const rekam = await Rekam.findById(req.params.rekamId, "-__v");
 
       Object.assign(rekam, req.body);
       rekam.save();

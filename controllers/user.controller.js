@@ -13,7 +13,7 @@ module.exports = {
             res.status(500).json({ message: err });
           } else {
             if (result) {
-              const token = jwt.sign({ id: data._id, role: data.roles }, KEY);
+              const token = jwt.sign({ id: data._id, role: data.role }, KEY);
               res
                 .status(200)
                 .json({ message: "Login is successfull", token: token });
@@ -28,39 +28,52 @@ module.exports = {
       });
   },
 
-  register: (req, res) => {
+  register: async (req, res) => {
     try {
       const data = req.body;
       const saltRounds = 10;
       const hash = bcrypt.hashSync(data.password, saltRounds);
       data.password = hash;
       const user = new User(data);
-
-      // console.log(user)
-      user.save();
-
+      await user.save();
       res.json({
-        message: "register berhasil",
+        message: "Sukses",
       });
-    } catch (error) {
-      res.json({
-        message: "failed regis",
+    } catch (err) {
+      res.status(400).json({
+        message: "Gagal",
+        error: err.errors,
       });
     }
   },
-
 
   getAllUser: async (req, res) => {
-    try {
-      const users = await User.find({}, "-__v -password");
-      res.json({
-        message: "success get data user",
-        data: users,
-      });
-    } catch (error) {
-      console.log(error);
+    if (req.query.role) {
+      try {
+        const user = await User.find({ role: req.query.role }, "-__v");
+        res.status(200).json({
+          message: "success ",
+          data: user,
+        });
+      } catch (err) {
+        res.status(500).json({
+          message: "internal server error",
+        });
+      }
+    } else {
+      try {
+        const users = await User.find({}, "-__v -password");
+        res.json({
+          message: "success get data user",
+          data: users,
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
+
+  getUserbyRole: async (req, res) => {},
 
   getUserByID: async (req, res) => {
     try {
@@ -104,7 +117,5 @@ module.exports = {
     } catch (error) {
       res.status(500).json({ message: "Server Error" });
     }
-
   },
 };
-

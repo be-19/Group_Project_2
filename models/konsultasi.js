@@ -21,6 +21,9 @@ const KonsultasiSchema = new Schema({
     required: true,
     default: Date.now,
   },
+  status: {
+    type: Boolean,
+  },
 });
 
 module.exports = mongoose.model("Konsultasi", KonsultasiSchema);

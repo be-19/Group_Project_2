@@ -1,50 +1,50 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 const pasienSchema = new Schema({
-  Nik: {
+  nik: {
     type: Number,
     required: [true, "Nik tidak boleh kosong"],
     validate: {
-      validator(Nik) {
+      validator(nik) {
         return this.model("Pasien")
-          .findOne({ Nik })
-          .then((result) => !result)
+          .findOne({ nik })
+          .then((result) => !result);
       },
-      message: (props) => "Data already taken",
-    }
+      message: (props) => "NIK sudah terdaftar",
+    },
   },
-  Nama: {
+  nama: {
     type: String,
     required: [true, "Nama tidak boleh kosong"],
   },
-  Jenis_kelamin: {
+  jenis_kelamin: {
     type: String,
+    enum: ["L", "P"],
     required: [true, "Jenis kelamin tidak boleh kosong"],
   },
-  Tanggal_lahir: {
+  tanggal_lahir: {
     type: Date,
     required: [true, "Tanggal lahir tidak boleh kosong"],
   },
-  Alamat: {
+  alamat: {
     type: String,
     required: [true, "Alamat tidak boleh kosong"],
   },
-  No_Telp: {
+  no_telp: {
     type: Number,
     required: [true, "No telepon tidak boleh kosong"],
   },
-  Alergi_obat: {
+  alergi_obat: {
     type: Boolean,
     required: [true, "Alergi obat tidak boleh kosong"],
   },
-  Pekerjaan: {
+  pekerjaan: {
     type: String,
     required: [true, "Pekerjaan tidak boleh kosong"],
   },
-  
-})
+});
 
-const Pasien = mongoose.model("Pasien", pasienSchema)
+const Pasien = mongoose.model("Pasien", pasienSchema);
 
-module.exports = Pasien
+module.exports = Pasien;

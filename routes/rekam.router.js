@@ -11,9 +11,9 @@ const {
 } = require("../controllers/rekam.controller");
 // router.use([auth.verifyToken, auth.isDokter]);
 router.get("/", getAllrekam);
-router.get("/:id", getrekamByID);
+router.get("/:rekamId", getrekamByID);
 router.post("/", addrekam);
-router.delete("/:id", deleterekamByID);
-router.put("/:id", updaterekamByID);
+router.delete("/:rekamId", deleterekamByID);
+router.patch("/:rekamId", updaterekamByID);
 
 module.exports = router;

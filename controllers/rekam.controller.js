@@ -6,7 +6,7 @@ module.exports = {
     if (req.query.id_pasien) {
       try {
         const rekam = await Rekam.find({
-          id_pasien: req.query.id_pasien,
+          pasien: req.query.id_pasien,
         })
           .populate("konsultasi")
           .populate("pasien");
@@ -71,7 +71,7 @@ module.exports = {
 
   deleterekamByID: async (req, res) => {
     try {
-      const rekam = await Rekam.findById(req.params.id, "-__v");
+      const rekam = await Rekam.findById(req.params.rekamId, "-__v");
 
       if (!rekam) {
         res.status(404).json({
@@ -90,13 +90,16 @@ module.exports = {
 
   updaterekamByID: async (req, res) => {
     try {
-      const rekam = await Rekam.findById(req.params.id, "-__v");
+      const updateRekam = await Rekam.updateOne(
+        { _id: req.params.rekamId },
+        {
+          $set: req.body,
+        }
+      );
 
-      Object.assign(rekam, req.body);
-      rekam.save();
-      res.status(201).send({
+      res.status(200).json({
         message: "Successfully update medical records data",
-        data: rekam,
+        data: updateRekam,
       });
     } catch (error) {
       res.status(500).json({ message: "Server Error" });

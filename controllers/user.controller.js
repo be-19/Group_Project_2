@@ -52,7 +52,10 @@ module.exports = {
   getAllUser: async (req, res) => {
     if (req.query.role) {
       try {
-        const user = await User.find({ role: req.query.role }, "-__v");
+        const user = await User.find(
+          { role: req.query.role },
+          "-__v -password"
+        );
         res.status(200).json({
           message: "success ",
           data: user,
@@ -65,7 +68,6 @@ module.exports = {
     } else {
       try {
         const users = await User.find({}, "-__v -password");
-        const { _id, nama, username, role, password } = users;
         res.json({
           message: "success get data user",
           data: users,
@@ -76,17 +78,17 @@ module.exports = {
     }
   },
 
-  getUserbyRole: async (req, res) => {},
-
   getUserByID: async (req, res) => {
     try {
-      const users = await User.find({}, "-__v -password");
+      const user = await User.findById(req.params.id, "-__v -password");
       res.status(200).json({
-        message: "Getting Data",
-        data: users,
+        message: "success get data user",
+        data: user,
       });
-    } catch (error) {
-      res.status(500).json({ message: "Server Error" });
+    } catch (err) {
+      res.status(500).json({
+        message: "internal server error",
+      });
     }
   },
 

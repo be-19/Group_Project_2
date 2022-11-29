@@ -9,6 +9,5 @@ const {
 
 router.get("/", getAllUser);
 router.get("/:id", getUserByID);
-router.get("/", getUserbyRole);
 
 module.exports = router;

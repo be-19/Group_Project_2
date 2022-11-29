@@ -47,8 +47,6 @@ module.exports = {
     }
   },
 
-  logout: (req, res) => {},
-
   getAllUser: async (req, res) => {
     if (req.query.role) {
       try {
@@ -80,15 +78,18 @@ module.exports = {
 
   getUserByID: async (req, res) => {
     try {
-      const user = await User.findById(req.params.id, "-__v -password");
+      const users = await User.find(
+        {
+          _id: req.params.id,
+        },
+        "-__v -password"
+      );
       res.status(200).json({
-        message: "success get data user",
-        data: user,
+        message: "Successful get data user",
+        data: users,
       });
-    } catch (err) {
-      res.status(500).json({
-        message: "internal server error",
-      });
+    } catch (error) {
+      res.status(500).json({ message: "Server Error", error: error });
     }
   },
 

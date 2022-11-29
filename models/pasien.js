@@ -32,7 +32,7 @@ const pasienSchema = new Schema({
     required: [true, "Alamat tidak boleh kosong"],
   },
   no_telp: {
-    type: Number,
+    type: String,
     required: [true, "No telepon tidak boleh kosong"],
   },
   alergi_obat: {

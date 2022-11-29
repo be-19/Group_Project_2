@@ -20,6 +20,24 @@ module.exports = {
           data: err,
         });
       }
+    } else if (req.query.id_pasien) {
+      console.log(req.query.id_pasien);
+      try {
+        const konsultasi = await Konsultasi.find({
+          pasien: req.query.id_pasien,
+        })
+          .populate("pasien")
+          .populate("dokter", "nama");
+        res.status(200).json({
+          message: "Successfully get consultation data",
+          data: konsultasi,
+        });
+      } catch (err) {
+        res.status(400).json({
+          message: "Failed to get consultation data",
+          data: err,
+        });
+      }
     } else {
       try {
         const konsultasi = await Konsultasi.find()

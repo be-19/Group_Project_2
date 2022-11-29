@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const pasienSchema = new Schema({
   nik: {
-    type: String,
+    type: Number,
     required: [true, "Nik tidak boleh kosong"],
     validate: {
       validator(nik) {
@@ -32,7 +32,7 @@ const pasienSchema = new Schema({
     required: [true, "Alamat tidak boleh kosong"],
   },
   no_telp: {
-    type: String,
+    type: Number,
     required: [true, "No telepon tidak boleh kosong"],
   },
   alergi_obat: {

@@ -4,7 +4,9 @@ const Rekam = require("../models/rekam");
 module.exports = {
   getAllrekam: async (req, res) => {
     try {
-      const rekam = await Rekam.find().populate("id_konsultasi", "pasien");
+      const rekam = await Rekam.find({}, "-__v")
+        .populate("id_konsultasi", "pasien")
+        .populate("id_pasien", ({}, "-__v"));
       res.json({
         message: "success get data Rekam Medis",
         data: rekam,

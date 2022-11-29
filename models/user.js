@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const User = mongoose.model(
   "User",
   new mongoose.Schema({
-    nama_lengkap: {
+    nama: {
       type: String,
       required: [true, "Nama tidak boleh kosong"],
     },

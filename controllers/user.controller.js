@@ -4,9 +4,9 @@ const jwt = require("jsonwebtoken");
 const KEY = "asdfjsdaklf234234";
 module.exports = {
   login: (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-    User.findOne({ username })
+    User.findOne({ email })
       .then((data) => {
         bcrypt.compare(password, data.password, (err, result) => {
           if (err) {

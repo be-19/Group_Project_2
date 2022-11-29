@@ -4,7 +4,7 @@ const Konsultasi = require("../models/konsultasi");
 module.exports = {
   getAllKonsultasi: async (req, res) => {
     try {
-      const konsultasi = await Konsultasi.find()
+      const konsultasi = await Konsultasi.find({}, "-__v")
         .populate("pasien", "Nama")
         .populate("dokter", "username");
       res.status(200).json(konsultasi);

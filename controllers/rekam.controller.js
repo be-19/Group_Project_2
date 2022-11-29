@@ -4,9 +4,10 @@ const Rekam = require("../models/rekam");
 module.exports = {
   getAllrekam: async (req, res) => {
     if (req.query.id_pasien) {
+      console.log(req.query.id_pasien);
       try {
         const rekam = await Rekam.find({
-          id_pasien: req.query.id_pasien,
+          pasien: req.query.id_pasien,
         })
           .populate("konsultasi")
           .populate("pasien");

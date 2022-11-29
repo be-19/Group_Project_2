@@ -14,6 +14,6 @@ router.get("/", getAllrekam);
 router.get("/:rekamId", getrekamByID);
 router.post("/", addrekam);
 router.delete("/:rekamId", deleterekamByID);
-router.put("/:rekamId", updaterekamByID);
+router.patch("/:rekamId", updaterekamByID);
 
 module.exports = router;

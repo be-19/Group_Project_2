@@ -47,6 +47,8 @@ module.exports = {
     }
   },
 
+  logout: (req, res) => {},
+
   getAllUser: async (req, res) => {
     if (req.query.role) {
       try {
@@ -63,6 +65,7 @@ module.exports = {
     } else {
       try {
         const users = await User.find({}, "-__v -password");
+        const { _id, nama, username, role, password } = users;
         res.json({
           message: "success get data user",
           data: users,

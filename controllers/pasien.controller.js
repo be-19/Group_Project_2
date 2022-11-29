@@ -48,29 +48,14 @@ module.exports = {
       });
     }
   },
-  getPasienByNik: async (req, res) => {
-    try {
-      const pasien = await Pasien.findOne({ Nik: req.params.nik });
-      if (pasien === null) {
-        res.status(404).json({
-          message: "Pasien not found",
-        });
-      } else {
-        res.status(200).json(pasien);
-      }
-    } catch (err) {
-      res.status(500).json({
-        message: "internal server error",
-      });
-    }
-  },
+
   addPasien: async (req, res) => {
     try {
       const data = req.body;
       const user = new Pasien(data);
       await user.save();
       res.status(200).json({
-        message: "data has been created!!",
+        message: "Successfully add patient data",
       });
     } catch (err) {
       res.status(500).json({
@@ -85,7 +70,7 @@ module.exports = {
       const data = req.body;
       await Pasien.deleteOne({ id: data._id });
       res.status(200).json({
-        message: "delete pasien succsess",
+        message: "Successfully delete patient data",
       });
     } catch (err) {
       res.status(500).json({
@@ -97,7 +82,7 @@ module.exports = {
     try {
       await Pasien.deleteMany();
       res.status(200).json({
-        message: "delete pasien succsess",
+        message: "Successfully delete all patient data",
       });
     } catch (err) {
       res.status(500).json({

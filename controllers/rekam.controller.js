@@ -4,7 +4,6 @@ const Rekam = require("../models/rekam");
 module.exports = {
   getAllrekam: async (req, res) => {
     if (req.query.id_pasien) {
-      console.log(req.query.id_pasien);
       try {
         const rekam = await Rekam.find({
           pasien: req.query.id_pasien,
@@ -91,13 +90,16 @@ module.exports = {
 
   updaterekamByID: async (req, res) => {
     try {
-      const rekam = await Rekam.findById(req.params.rekamId, "-__v");
+      const updateRekam = await Rekam.updateOne(
+        { _id: req.params.rekamId },
+        {
+          $set: req.body,
+        }
+      );
 
-      Object.assign(rekam, req.body);
-      rekam.save();
-      res.status(201).send({
+      res.status(200).json({
         message: "Successfully update medical records data",
-        data: rekam,
+        data: updateRekam,
       });
     } catch (error) {
       res.status(500).json({ message: "Server Error" });

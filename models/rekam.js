@@ -10,13 +10,18 @@ const rekamSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Pasien",
   },
+  riwayat_penyakit:[
+  {
   anamnesis: String,
   diagnosis: String,
   obat: String,
+  catatan:String,
   tanggal_rekam: {
     type: Date,
     default: Date.now,
-  },
+    },
+  }
+ ]
 });
 
 const Rekam = mongoose.model("Rekam", rekamSchema);

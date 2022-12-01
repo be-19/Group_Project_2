@@ -10,8 +10,6 @@ const rekamSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Pasien",
   },
-  riwayat_penyakit:[
-  {
   anamnesis: String,
   diagnosis: String,
   obat: String,
@@ -20,8 +18,7 @@ const rekamSchema = new Schema({
     type: Date,
     default: Date.now,
     },
-  }
- ]
+ 
 });
 
 const Rekam = mongoose.model("Rekam", rekamSchema);

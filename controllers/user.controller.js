@@ -16,7 +16,7 @@ module.exports = {
               const token = jwt.sign({ id: data._id, role: data.role }, KEY);
               res
                 .status(200)
-                .json({ message: "Login is successfull", token: token });
+                .json({ message: "Login is successfull", token: token,id: data._id,username:data.username,email:data.email, role: data.role });
             } else {
               res.status(403).json({ message: "Login is failed" });
             }

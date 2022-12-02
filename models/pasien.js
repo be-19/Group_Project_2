@@ -20,7 +20,6 @@ const pasienSchema = new Schema({
   },
   jenis_kelamin: {
     type: String,
-    enum: ["L", "P"],
     required: [true, "Jenis kelamin tidak boleh kosong"],
   },
   tanggal_lahir: {

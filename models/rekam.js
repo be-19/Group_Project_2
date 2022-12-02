@@ -13,10 +13,12 @@ const rekamSchema = new Schema({
   anamnesis: String,
   diagnosis: String,
   obat: String,
+  catatan:String,
   tanggal_rekam: {
     type: Date,
     default: Date.now,
-  },
+    },
+ 
 });
 
 const Rekam = mongoose.model("Rekam", rekamSchema);
